@@ -3,9 +3,12 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProductController;
 
 
-Route::get('/',[HomeController::class,'home']);
+Route::get('/',[HomeController::class,'home'])->name('home.index');
+
 
 
 Route::get('/dashboard', function () {
@@ -20,4 +23,11 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('admin/dashboard',[HomeController::class,'index'])->middleware(['auth','admin']);
+Route::get('admin/dashboard',[HomeController::class,'index'])->name('admin.index')->middleware(['auth','admin']);
+Route::get('/view_category',[AdminController::class,'view_category'])->middleware(['auth','admin']);
+Route::post('/add_category',[AdminController::class,'add_category'])->middleware(['auth','admin']);
+Route::get('/view_product', [ProductController::class, 'view_product'])->name('admin.product')->middleware(['auth', 'admin']);
+Route::get('/create', [ProductController::class, 'create'])->name('admin.create')->middleware(['auth', 'admin']);
+Route::post('/addProduct', [ProductController::class, 'addProduct'])->name('admin.addProduct')->middleware(['auth', 'admin']);
+
+
