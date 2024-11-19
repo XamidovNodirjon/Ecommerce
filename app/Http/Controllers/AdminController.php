@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 use Flasher\Toastr\Prime;
 class AdminController extends Controller
 {
-    public function view_category(){
-        $category = Category::all();
+    public function view_category(Request $request){
+        $perPage = $request->input('perPage',5);
+        $category = Category::paginate($perPage);
         return view('admin.category',compact('category'));
     }
 

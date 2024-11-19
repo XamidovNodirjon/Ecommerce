@@ -144,10 +144,14 @@
                         @endforeach
                         </tbody>
                     </table>
+                    {{ $category->links() }}
+
                 </div>
             </div>
         </div>
     </div>
+
+
 </div>
 
 @include('admin.script')
