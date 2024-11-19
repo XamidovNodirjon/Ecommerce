@@ -145,7 +145,6 @@
                         </tbody>
                     </table>
                     {{ $category->links() }}
-
                 </div>
             </div>
         </div>

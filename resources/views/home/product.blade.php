@@ -27,7 +27,7 @@
                                 </h6>
                             </div>
                             <div class="badge bg-danger position-absolute top-0 end-0 m-2">
-                                New
+                                Aksiya
                             </div>
                         </button>
                     </div>

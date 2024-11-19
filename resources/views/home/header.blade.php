@@ -41,7 +41,7 @@
                     </span>
                 </a>
 
-                <a href="{{url('/register')}}">
+                <a href="{{route('auth.register')}}">
                     <i class="fa fa-vcard" aria-hidden="true"></i>
                     <span>
                         Register
