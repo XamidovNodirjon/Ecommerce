@@ -9,6 +9,7 @@ use App\Http\Controllers\AuthController;
 
 
 Route::get('/',[HomeController::class,'home'])->name('home.index');
+Route::get('shop',[ProductController::class,'shop'])->name('product.shop');
 
 
 
@@ -31,5 +32,6 @@ Route::post('/add_category',[AdminController::class,'add_category'])->middleware
 Route::get('/view_product', [ProductController::class, 'view_product'])->name('admin.product')->middleware(['auth', 'admin']);
 Route::get('/create', [ProductController::class, 'create'])->name('admin.create')->middleware(['auth', 'admin']);
 Route::post('/addProduct', [ProductController::class, 'addProduct'])->name('admin.addProduct')->middleware(['auth', 'admin']);
+
 
 

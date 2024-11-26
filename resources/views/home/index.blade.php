@@ -23,7 +23,7 @@
 @include('home.product')
 
 <!-- end shop section -->
-
+@yield('content')
 
 <!-- contact section -->
 

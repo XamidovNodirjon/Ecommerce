@@ -46,6 +46,11 @@ class ProductController extends Controller
         return redirect()->route('admin.product')->with('success', 'Product added successfully!');
     }
 
+    public function shop(){
+        $products = Product::all();
+        return view('home.allProduct',compact('products'));
+    }
+
 
 
 
