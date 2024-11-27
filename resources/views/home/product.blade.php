@@ -42,26 +42,43 @@
     </div>
 
     <!-- Product Modal -->
-    <div class="modal fade form-control" id="product_modal" tabindex="-1" aria-labelledby="product_modal_label" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+    <a href="#" data-bs-toggle="modal" data-bs-target="#basket_modal" class="position-relative">
+        <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+        <span id="basket_count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+        0
+    </span>
+    </a>
+
+    <!-- Basket Modal -->
+    <div class="modal fade" id="basket_modal" tabindex="-1" aria-labelledby="basket_modal_label" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content border-0 shadow">
                 <!-- Modal Header -->
                 <div class="modal-header bg-primary text-white">
-                    <h4 class="modal-title fw-bold" id="product_modal_label">Product Details</h4>
+                    <h4 class="modal-title fw-bold" id="basket_modal_label">Your Basket</h4>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <!-- Modal Body -->
-                <div class="modal-body text-center">
-                    <img src="" alt="Product Image" class="img-fluid mb-3 rounded" id="product_image">
-                    <h5 id="product_name" class="fw-bold mb-2"></h5>
-                    <p id="product_description" class="text-muted mb-3"></p>
+                <div class="modal-body">
+                    <ul id="basket_list" class="list-group mb-3">
+                        <!-- Basket Items Will Appear Here -->
+                    </ul>
+                    <div class="mb-3">
+                        <label for="delivery_address" class="form-label">Delivery Address</label>
+                        <input type="text" class="form-control" id="delivery_address" placeholder="Enter delivery address">
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone_number" class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" id="phone_number" placeholder="Enter phone number">
+                    </div>
                     <h6 class="fw-bold">
-                        Price: <span id="product_price" class="text-success"></span>
+                        Total Price: $<span id="total_price">0.00</span>
                     </h6>
                 </div>
                 <!-- Modal Footer -->
                 <div class="modal-footer justify-content-center">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Checkout</button>
                 </div>
             </div>
         </div>
@@ -69,16 +86,47 @@
 
     <!-- Script -->
     <script>
-        const productImage = document.getElementById('product_image');
-        const productName = document.getElementById('product_name');
-        const productPrice = document.getElementById('product_price');
-        const productDescription = document.getElementById('product_description');
+        const basket = [];
+        const basketCountElem = document.getElementById('basket_count');
+        const basketList = document.getElementById('basket_list');
+        const totalPriceElem = document.getElementById('total_price');
 
-        function getProductInfo(image, name, price, description) {
-            productImage.setAttribute('src', image);
-            productName.innerText = name;
-            productPrice.innerText = price;
-            productDescription.innerText = description;
+        function addToBasket(id, name, price) {
+            const product = { id, name, price: parseFloat(price) };
+            basket.push(product);
+            updateBasketCount();
+            renderBasket();
+        }
+
+        function updateBasketCount() {
+            basketCountElem.textContent = basket.length; // Update the basket count
+        }
+
+        function renderBasket() {
+            // Clear basket list
+            basketList.innerHTML = '';
+
+            // Render each product
+            let totalPrice = 0;
+            basket.forEach((product, index) => {
+                const li = document.createElement('li');
+                li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                li.innerHTML = `
+                ${product.name} - $${product.price.toFixed(2)}
+                <button class="btn btn-sm btn-danger" onclick="removeFromBasket(${index})">Remove</button>
+            `;
+                basketList.appendChild(li);
+
+                totalPrice += product.price;
+            });
+
+            // Update total price
+            totalPriceElem.innerText = totalPrice.toFixed(2);
+        }
+
+        function removeFromBasket(index) {
+            basket.splice(index, 1);
+            updateBasketCount();
+            renderBasket();
         }
     </script>
-</section>
