@@ -38,6 +38,10 @@
         }
     </style>
 </head>
+<script src="{{asset('/admincss/vendor/jquery/jquery.min.js')}}"></script>
+
+<script src="{{asset('/admincss/js/toastr.min.js')}}"></script>
+
 <body>
 @include('admin.header')
 
@@ -99,7 +103,6 @@
         </div>
     </div>
 </div>
-
 <!-- JavaScript files-->
 @include('admin.script')
 
